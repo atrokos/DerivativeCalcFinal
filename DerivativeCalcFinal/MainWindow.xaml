@@ -6,7 +6,7 @@
         xmlns:controls="clr-namespace:WpfMath.Controls;assembly=WpfMath"
         xmlns:local="clr-namespace:TutorialWPF"
         mc:Ignorable="d"
-        Title="Derivative Calculator v0.5" Height="450" Width="800">
+        Title="Derivative Calculator v0.9.0" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
