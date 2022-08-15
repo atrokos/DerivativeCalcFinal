@@ -3,6 +3,7 @@ using ExprTree;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace CSharpMath
 {
@@ -10,55 +11,60 @@ namespace CSharpMath
     {
         public class MathExpression
         {
-            private Head tree;
+            private Head tree = new();
             private readonly Parser parser;
-            private string expr_string;
-            private bool isDifferentiable;
+            private bool isDifferentiable = true;
+            List<string> expressions = new List<string>();
 
-            public MathExpression(string newexpr, string VAR, bool withSteps)
+            public MathExpression(string newexpr, string VAR)
             {
                 parser = new(VAR);
-                
-                if (withSteps)
-                {
-                    Entity entity = newexpr;
-                    expr_string = entity.Simplify().ToString();
-                }
-                else
-                {
-                    expr_string = newexpr.ToLower();
-                }
-
-                try
-                {
-                    tree = parser.ConvertToTree(expr_string);
-                    isDifferentiable = true;
-                }
-                catch
+                if (!Regex.IsMatch(newexpr, @"^[0-9a-z()+/*-^ ]+$"))
                 {
                     isDifferentiable = false;
+                    return;
                 }
+
+                expressions.Add(newexpr.ToLower());
             }
-            public override string ToString()
+            public int Diff_Count()
             {
-                Entity result = expr_string;
+                return expressions.Count - 1;
+            }
+            public string ToStringSpec(int index) //Returns an expression in LaTeX on the given index
+            {
+                Entity result = expressions[index];
+                return result.Latexise();
+            }
+            public override string ToString() //Returns the last expression as a LaTeX string
+            {
+                Entity result = expressions[^1];
                 return result.Latexise();
             }
             public void Simplify()
             {
-                Entity simple = expr_string;
-                expr_string = simple.Simplify().ToString();
+                Entity simple = expressions[^1];
+                expressions[^1] = simple.Simplify().ToString();
             }
-            public void Differentiate() // Thought: Further derivations can be stored in a List, so List[0] is OG func., List[1] is 1st der. etc.
+            public void Differentiate(bool withSteps)
             {
-                tree.Differentiate();
-                expr_string = parser.ConvertToInfix(tree);
-            }
-            public void DifferentiateSteps()
-            {
-                Storage.Steps = new();
-                tree.DifferentiateSteps();
-                expr_string = parser.ConvertToInfix(tree);
+                if (withSteps)
+                {
+                    Entity entity = expressions[^1];
+                    expressions[^1] = entity.Simplify().ToString();
+                    tree = parser.ConvertToTree(expressions[^1]);
+
+                    Storage.Steps = new();
+                    tree.DifferentiateSteps();
+                    expressions.Add(parser.ConvertToInfix(tree));
+                }
+                else
+                {
+                    tree = parser.ConvertToTree(expressions[^1]);
+
+                    tree.Differentiate();
+                    expressions.Add(parser.ConvertToInfix(tree));
+                }
             }
             public bool IsDifferentiable()
             {
@@ -742,6 +748,12 @@ namespace CSharpMath
                     case Log:
                         GeneratedSteps.Add(DerivativeCalcFinal.Rules.ln);
                         GeneratedSteps.Add($"/math \\frac{{1}}{{ {nodes[1]} }} * [{nodes[1]}]'");
+                        GenerateFurther(margin, color, 1);
+                        GeneratedSteps.Add($"/math {nodes[2]}");
+                        break;
+                    case Abs:
+                        GeneratedSteps.Add(DerivativeCalcFinal.Rules.abs);
+                        GeneratedSteps.Add($"/math \\frac{{ {nodes[1]} }}{{ |{nodes[1]}| }} * [{nodes[1]}]'");
                         GenerateFurther(margin, color, 1);
                         GeneratedSteps.Add($"/math {nodes[2]}");
                         break;
