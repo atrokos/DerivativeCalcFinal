@@ -7,6 +7,10 @@
         <Style TargetType="Separator">
             <Setter Property="Background" Value="Black"/>
         </Style>
+        <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+        </Style>
     </Application.Resources>
+    
     
 </Application>

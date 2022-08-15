@@ -43,30 +43,19 @@
             </TextBox.Resources>
             <TextBox.ToolTip>
                 <ToolTip Placement="Mouse">
-                    <TextBlock Text="Your expression here"/>
+                    <TextBlock Text="Sem zadejte výraz"/>
                 </ToolTip>
             </TextBox.ToolTip>
         </TextBox>
         <Button x:Name="GoButton" Content="Počítej!" FontWeight="Bold" Grid.Column="2" Grid.Row="2" Height="30"
                 Margin="1" Click="GoButton_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
             <Button.ToolTip>
                 <ToolTip Placement="Mouse">
-                    <TextBlock Text="Start differentiation">
-                        <TextBlock.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                        </TextBlock.Resources>
-                    </TextBlock>
+                    <TextBlock Text="Spustit derivování"/>
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        
+
         <CheckBox x:Name="WithSteps" Content="Postup" Grid.Column="2" Grid.Row="3" Margin="1">
             <CheckBox.Resources>
                 <Style TargetType="Border">
@@ -75,10 +64,29 @@
             </CheckBox.Resources>
         </CheckBox>
 
-        <ComboBox x:Name="DiffVar" Grid.Column="2" Grid.Row="4" MaxHeight="30" VerticalAlignment="Top"
-                  Margin="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+        <Grid Grid.Column="2" Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="DiffVar" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                  Margin="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                  FontWeight="Bold"/>
 
-        <TextBlock Text="Náhled vstupu:" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" FontWeight="Bold" FontSize="15"/>
+            <Button x:Name="PrevDiff" Grid.Column="0" Grid.Row="1" Content="&lt;" IsEnabled="False"
+                    Margin="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Click="PrevDiff_Click"/>
+            <Button x:Name="NextDiff" Grid.Column="2" Grid.Row="4" Content="&gt;" IsEnabled="False"
+                    Margin="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Click="NextDiff_Click"/>
+        </Grid>
+
+        <TextBlock Text="Náhled vstupu:" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" FontWeight="Bold"
+                   FontSize="15"/>
         
         <ScrollViewer x:Name="InputScoller" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="4"
                       VerticalScrollBarVisibility="Hidden"
@@ -88,10 +96,11 @@
             <controls:FormulaControl Name="InputFormula" Formula=""/>
         </ScrollViewer>
         
-        <TextBlock Text="Výsledek:" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+        <TextBlock Text="Výsledek:" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" FontWeight="Bold"
+                   FontSize="15"/>
         
-        <ScrollViewer x:Name="OutputScoller" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" VerticalScrollBarVisibility="Hidden"
-                      MinHeight="40"
+        <ScrollViewer x:Name="OutputScoller" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6"
+                      VerticalScrollBarVisibility="Hidden" MinHeight="40"
                       HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Margin="5,8">
             <controls:FormulaControl Name="OutputFormula" Formula=""/>
         </ScrollViewer>
@@ -110,7 +119,13 @@
 
         <Grid Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="6">
             <ProgressBar x:Name="Progress" HorizontalAlignment="Stretch" Margin="0,0"
-                     Minimum="0" Maximum="100" Value="0" />
+                     Minimum="0" Maximum="100" Value="0">
+                <ProgressBar.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="0"/>
+                    </Style>
+                </ProgressBar.Resources>
+            </ProgressBar>
             <TextBlock x:Name="StatusBox" Text="Připraven" FontWeight="Bold"
                    Margin="5,0"/>
         </Grid>
