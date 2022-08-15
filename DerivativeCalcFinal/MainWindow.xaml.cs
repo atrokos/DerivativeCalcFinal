@@ -41,90 +41,127 @@ namespace TutorialWPF
         private string prev_input = "";
         private bool prev_state = true;
         private string prev_var = "x";
+        private int diff_pos = 1;
+        private MathExpression expression = null;
         private static readonly List<SolidColorBrush> bcolors = new() {Brushes.PaleGreen, Brushes.PaleTurquoise, Brushes.PaleGoldenrod, Brushes.LightSalmon, Brushes.Linen };
 
         private async void GoButton_Click(object sender, RoutedEventArgs e)
         {
-            await Execute();
+            string input = inputexpression.Text, var = DiffVar.Text;
+            bool isChecked = (bool)WithSteps.IsChecked;
+            await Task.Run(() => Execute(input, isChecked, var));
         }
-        private async Task Execute()
+        private void Execute(string input, bool isChecked, string var)
         {
-            if (prev_input == inputexpression.Text && prev_state == WithSteps.IsChecked && prev_var == DiffVar.Text)
+            if (prev_input == input && prev_state == isChecked && prev_var == var || input == "")
                 return;
-            prev_input = inputexpression.Text;
-            prev_var = DiffVar.Text;
-            prev_state = (bool)WithSteps.IsChecked;
+            prev_input = input;
+            prev_var = var;
+            prev_state = isChecked;
 
-            if (WithSteps.IsChecked == false)
+            Dispatcher.Invoke(() =>
             {
-                StepScroller.Visibility = Visibility.Hidden;
-                StepBox.Visibility = Visibility.Hidden;
-                await DifferentiateAsync();
-            }
-            else
-            {
-                StepScroller.Visibility = Visibility.Visible;
-                StepBox.Visibility = Visibility.Visible;
-                await DifferentiateStepsAsync();
-            }
+                if (WithSteps.IsChecked == false)
+                {
+                    StepScroller.Visibility = Visibility.Hidden;
+                    StepBox.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    StepScroller.Visibility = Visibility.Visible;
+                    StepBox.Visibility = Visibility.Visible;
+                }
+            });
+            Differentiate(input, isChecked, var);
         }
         private async void inputexpression_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                await Execute();
+                await Task.Run(() => Execute(inputexpression.Text, (bool)WithSteps.IsChecked, DiffVar.Text));
             }
         }
-        private async Task DifferentiateAsync()
+        private void Differentiate(string input, bool isChecked, string var)
         {
-            if (inputexpression.Text == "")
-                return;
-            Progress.Value = 0;
-            MathExpression expression = new(inputexpression.Text, DiffVar.Text, false);
+            Dispatcher.Invoke(() => Progress.Value = 0);
+            expression = new(input, var);
             if (!expression.IsDifferentiable())
             {
-                StatusBox.Foreground = Brushes.Red;
-                StatusBox.Text = "Chyba: Nesprávný syntax";
-                return;
+                Dispatcher.Invoke(() =>
+                {
+                    StatusBox.Foreground = Brushes.Red;
+                    StatusBox.Text = "Chyba: Nesprávný vstup";
+                    return;
+                });
             }
-            StatusBox.Foreground = Brushes.Black;
-            StatusBox.Text = "Derivuji...";
-            Progress.Value = 40;
-            expression.Differentiate();
-            StatusBox.Text = "Zjednodušuji vzorec...";
-            Progress.Value = 70;
-            await Task.Run(() => expression.Simplify());
-            StatusBox.Text = "Sázím...";
-            Progress.Value = 90;
-            OutputFormula.Formula = await Task.Run(() => expression.ToString());
-            Progress.Value = 100;
-            StatusBox.Text = "Hotovo";
+            Dispatcher.Invoke(() =>
+            {
+                StatusBox.Foreground = Brushes.Black;
+                StatusBox.Text = "Derivuji...";
+                Progress.Value = 40;
+            });
+            expression.Differentiate(isChecked);
+            Dispatcher.Invoke(() =>
+            {
+                StatusBox.Text = "Zjednodušuji vzorec...";
+                Progress.Value = 70;
+            });
+            expression.Simplify();
+            if (isChecked)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    Progress.IsIndeterminate = true;
+                    StatusBox.Text = "Generuji kroky...";
+                });
+                GenerateSteps(var);
+            }
+            Dispatcher.Invoke(() =>
+            {
+                Progress.IsIndeterminate = false;
+                StatusBox.Text = "Sázím...";
+                Progress.Value = 90;
+                OutputFormula.Formula = expression.ToString();
+                Progress.Value = 100;
+                StatusBox.Text = "Hotovo";
+                NextDiff.IsEnabled = true;
+            });
         }
-        private async Task DifferentiateStepsAsync()
+        private void DifferentiateFurther(bool isChecked, string var)
         {
-            if (inputexpression.Text == "")
-                return;
-
-
-            Progress.Value = 0;
-            MathExpression expression = new(inputexpression.Text, DiffVar.Text, true);
-            if (!expression.IsDifferentiable())
+            Dispatcher.Invoke(() =>
             {
-                StatusBox.Foreground = Brushes.Red;
-                StatusBox.Text = "Chyba: Nesprávný syntax";
-                return;
+                StepPanel.Children.Clear();
+                StatusBox.Text = "Derivuji...";
+                Progress.Value = 40;
+            });
+            expression.Differentiate(isChecked);
+            Dispatcher.Invoke(() =>
+            {
+                StatusBox.Text = "Zjednodušuji vzorec...";
+                Progress.Value = 70;
+            });
+            expression.Simplify();
+            diff_pos++;
+            if (isChecked)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    Progress.IsIndeterminate = true;
+                    StatusBox.Text = "Generuji kroky...";
+                });
+                GenerateSteps(var);
             }
-            StatusBox.Foreground = Brushes.Black;
-            StatusBox.Text = "Derivuji...";
-            Progress.Value = 40;
-            expression.DifferentiateSteps(); //Change to Differentiate after debugging!
-            StatusBox.Text = "Zjednodušuji vzorec...";
-            Progress.Value = 55;
-            await Task.Run(() => expression.Simplify());
-            await Task.Run(() => Dispatcher.Invoke(() => GenerateSteps()));
-            OutputFormula.Formula = await Task.Run(() => expression.ToString());
-            Progress.Value = 100;
-            StatusBox.Text = "Hotovo";
+            Dispatcher.Invoke(() =>
+            {
+                Progress.IsIndeterminate = false;
+                StatusBox.Text = "Sázím...";
+                Progress.Value = 90;
+                OutputFormula.Formula = expression.ToStringSpec(diff_pos);
+                Progress.Value = 100;
+                StatusBox.Text = "Hotovo";
+                PrevDiff.IsEnabled = true;
+            });
         }
 
         private void inputexpression_TextChanged(object sender, TextChangedEventArgs e)
@@ -148,20 +185,20 @@ namespace TutorialWPF
             InputFormula.Formula = result;
         }
 
-        private void GenerateSteps()
+        private void GenerateSteps(string diffvar)
         {
-            StepGenerator generator = new(DiffVar.Text);
+            StepGenerator generator = new(diffvar);
             List<string> steps = generator.StartGenerating();
             int margin = 0;
             int color = 0;
 
-            foreach(string step in steps)
+            foreach (string step in steps)
             {
                 string[] command = step.Split(' ');
                 switch (command[0])
                 {
                     case "/math":
-                        StepPanel.Children.Add(new FormulaControl() { Formula = step[5..], Margin = new Thickness(margin, 0, 0, 0) , Background = bcolors[color] }); //x,5,0,0
+                        Dispatcher.Invoke(() => StepPanel.Children.Add(new FormulaControl() { Formula = step[5..], Margin = new Thickness(margin, 0, 0, 0), Background = bcolors[color] })); //x,5,0,0
                         break;
                     case "/margin":
                         margin = int.Parse(command[1]);
@@ -170,9 +207,46 @@ namespace TutorialWPF
                         color = int.Parse(command[1]) % bcolors.Count;
                         break;
                     default:
-                        StepPanel.Children.Add(new TextBlock() { Text = step, FontSize = 15, Margin = new Thickness(margin, 0, 0, 0), Background = bcolors[color] }); //x,5,0,10
+                        Dispatcher.Invoke(() => StepPanel.Children.Add(new TextBlock() { Text = step, FontSize = 15, Margin = new Thickness(margin, 0, 0, 0), Background = bcolors[color] })); //x,5,0,10
                         break;
                 }
+            }
+        }
+
+        private async void NextDiff_Click(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = (bool)WithSteps.IsChecked;
+            string var = DiffVar.Text;
+
+            if (diff_pos < expression.Diff_Count())
+            {
+                diff_pos++;
+                OutputFormula.Formula = expression.ToStringSpec(diff_pos);
+                PrevDiff.IsEnabled = true;
+            }
+            else if (diff_pos == expression.Diff_Count())
+            {
+                await Task.Run(() =>
+                {
+                    DifferentiateFurther(isChecked, var);
+                });
+            }
+        }
+
+        private void PrevDiff_Click(object sender, RoutedEventArgs e)
+        {
+            if (diff_pos <= expression.Diff_Count() && diff_pos > 2)
+            {
+                diff_pos--;
+                OutputFormula.Formula = expression.ToStringSpec(diff_pos);
+                PrevDiff.IsEnabled = true;
+            }
+            else if (diff_pos == 2)
+            {
+                diff_pos--;
+                OutputFormula.Formula = expression.ToStringSpec(diff_pos);
+                PrevDiff.IsEnabled = true;
+                PrevDiff.IsEnabled = false;
             }
         }
     }
