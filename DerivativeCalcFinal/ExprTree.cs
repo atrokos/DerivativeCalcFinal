@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CSharpMath.Differentiation;
 
 namespace ExprTree
 {
@@ -223,6 +222,10 @@ namespace ExprTree
         }
         public LetterConstant(string value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
             Letter = value;
         }
         public override void SelfCheck()
@@ -1179,10 +1182,10 @@ namespace ExprTree
             abs.Add(leftchild.Clone());
             divi.SetChildren(leftchild.Clone(), abs);
             multi.SetChildren(divi, leftchild.Clone());
-            multi.rightchild.Differentiate();
+            multi.rightchild.DifferentiateSteps();
 
             SwapChildren(multi);
-            list.Add(divi);
+            list.Add(multi);
         }
         public override INode Clone()
         {

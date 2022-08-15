@@ -61,7 +61,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abs.
+        ///   Looks up a localized string similar to Pro absolutní hodnotu platí: |x| = x/|x| * [x]&apos; :.
         /// </summary>
         internal static string abs {
             get {
@@ -79,7 +79,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro arccos platí: arccos(x) = .
+        ///   Looks up a localized string similar to Pro arccos platí: [arccos(x)]&apos; = (-1).
         /// </summary>
         internal static string arccos {
             get {
@@ -88,7 +88,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arccotg.
+        ///   Looks up a localized string similar to Pro arccotan platí:.
         /// </summary>
         internal static string arccotg {
             get {
@@ -97,7 +97,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arcsin.
+        ///   Looks up a localized string similar to Pro arcsin platí:.
         /// </summary>
         internal static string arcsin {
             get {
@@ -106,7 +106,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arctan.
+        ///   Looks up a localized string similar to Pro arctan platí:.
         /// </summary>
         internal static string arctg {
             get {
@@ -133,7 +133,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cotan.
+        ///   Looks up a localized string similar to Pro cotan platí:.
         /// </summary>
         internal static string cotg {
             get {
@@ -151,7 +151,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro dělení platí: f / g = ( f&apos; * g - f * g&apos; ) / (g^2)  :.
+        ///   Looks up a localized string similar to Pro dělení platí: [f / g]&apos; = ( f&apos; * g - f * g&apos; ) / (g^2)  :.
         /// </summary>
         internal static string division {
             get {
@@ -160,16 +160,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LetterConstant.
-        /// </summary>
-        internal static string letterconstant {
-            get {
-                return ResourceManager.GetString("letterconstant", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ln.
+        ///   Looks up a localized string similar to Pro přirozený logaritmus platí:.
         /// </summary>
         internal static string ln {
             get {
@@ -178,7 +169,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro násobení platí: f * g = f&apos; * g + f * g&apos;  :.
+        ///   Looks up a localized string similar to Pro násobení platí: [f * g]&apos; = f&apos; * g + f * g&apos;  :.
         /// </summary>
         internal static string multiplication {
             get {
@@ -187,7 +178,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mocnina.
+        ///   Looks up a localized string similar to Pro mocninu platí:.
         /// </summary>
         internal static string power {
             get {
@@ -196,7 +187,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jelikož [sin(x)]&apos; = cos(x) * [x]&apos; :.
+        ///   Looks up a localized string similar to Pro sinus platí: [sin(x)]&apos; = cos(x) * [x]&apos;.
         /// </summary>
         internal static string sin {
             get {
@@ -205,7 +196,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro odčítání platí: f - g = f&apos; - g&apos;  :.
+        ///   Looks up a localized string similar to Pro odčítání platí: [f - g]&apos; = f&apos; - g&apos;  :.
         /// </summary>
         internal static string substraction {
             get {
@@ -214,7 +205,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tangens.
+        ///   Looks up a localized string similar to Pro tangens platí:.
         /// </summary>
         internal static string tg {
             get {
