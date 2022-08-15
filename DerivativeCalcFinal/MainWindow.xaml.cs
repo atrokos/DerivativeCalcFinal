@@ -91,8 +91,8 @@ namespace TutorialWPF
                 {
                     StatusBox.Foreground = Brushes.Red;
                     StatusBox.Text = "Chyba: Nesprávný vstup";
-                    return;
                 });
+                return;
             }
             Dispatcher.Invoke(() =>
             {
@@ -231,6 +231,11 @@ namespace TutorialWPF
                     DifferentiateFurther(isChecked, var);
                 });
             }
+            
+            if (expression.ToStringSpec(diff_pos) == "0")
+            {
+                NextDiff.IsEnabled = false;
+            }
         }
 
         private void PrevDiff_Click(object sender, RoutedEventArgs e)
@@ -239,15 +244,14 @@ namespace TutorialWPF
             {
                 diff_pos--;
                 OutputFormula.Formula = expression.ToStringSpec(diff_pos);
-                PrevDiff.IsEnabled = true;
             }
             else if (diff_pos == 2)
             {
                 diff_pos--;
                 OutputFormula.Formula = expression.ToStringSpec(diff_pos);
-                PrevDiff.IsEnabled = true;
                 PrevDiff.IsEnabled = false;
             }
+            NextDiff.IsEnabled = true;
         }
     }
 }
