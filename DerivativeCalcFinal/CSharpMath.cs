@@ -19,7 +19,7 @@ namespace CSharpMath
             public MathExpression(string newexpr, string VAR)
             {
                 parser = new(VAR);
-                if (!Regex.IsMatch(newexpr, @"^[0-9a-z()+/*-^ ]+$"))
+                if (!Regex.IsMatch(newexpr, @"^[0-9a-z()+/*-^ ]+$") || !CorrectSyntax(newexpr))
                 {
                     isDifferentiable = false;
                     return;
@@ -31,10 +31,13 @@ namespace CSharpMath
             {
                 return expressions.Count - 1;
             }
-            public string ToStringSpec(int index) //Returns an expression in LaTeX on the given index
+            public string ToStringSpec(int index, bool latex) //Returns an expression in LaTeX on the given index
             {
                 Entity result = expressions[index];
-                return result.Latexise();
+                if (latex)
+                    return result.Latexise();
+
+                return result.ToString();
             }
             public override string ToString() //Returns the last expression as a LaTeX string
             {
@@ -70,6 +73,18 @@ namespace CSharpMath
             {
                 return isDifferentiable;
             }
+            bool CorrectSyntax(string expression)
+            {
+                try
+                {
+                    parser.ConvertToTree(expression);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
 
         }
         class Parser
@@ -87,12 +102,13 @@ namespace CSharpMath
             public Head ConvertToTree(string expression)
             {
                 Head tree = PrefixToTree(ListToPrefix(ExprToList(expression)));
+                pos = 0;
                 return tree;
             }
             public string ConvertToInfix(Head tree)
             {
                 string expression = PrefixToInfix(TreeToPrefix(tree));
-                pos = 0;
+                //pos = 0;
                 return expression;
             }
             public string ConvertToInfixHead(INode node)

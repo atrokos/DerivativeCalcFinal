@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using Microsoft.Win32;
 using WpfMath.Controls;
 using CSharpMath.Differentiation;
 using AngouriMath;
@@ -111,6 +102,7 @@ namespace TutorialWPF
             {
                 Dispatcher.Invoke(() =>
                 {
+                    StepPanel.Children.Clear();
                     Progress.IsIndeterminate = true;
                     StatusBox.Text = "Generuji kroky...";
                 });
@@ -157,7 +149,7 @@ namespace TutorialWPF
                 Progress.IsIndeterminate = false;
                 StatusBox.Text = "Sázím...";
                 Progress.Value = 90;
-                OutputFormula.Formula = expression.ToStringSpec(diff_pos);
+                OutputFormula.Formula = expression.ToStringSpec(diff_pos, true);
                 Progress.Value = 100;
                 StatusBox.Text = "Hotovo";
                 PrevDiff.IsEnabled = true;
@@ -166,8 +158,6 @@ namespace TutorialWPF
 
         private void inputexpression_TextChanged(object sender, TextChangedEventArgs e)
         {
-            StepPanel.Children.Clear();
-            OutputFormula.Formula = "";
             StatusBox.Foreground = Brushes.Black;
             Progress.Value = 0;
             StatusBox.Text = "Připraven";
@@ -221,7 +211,7 @@ namespace TutorialWPF
             if (diff_pos < expression.Diff_Count())
             {
                 diff_pos++;
-                OutputFormula.Formula = expression.ToStringSpec(diff_pos);
+                OutputFormula.Formula = expression.ToStringSpec(diff_pos, true);
                 PrevDiff.IsEnabled = true;
             }
             else if (diff_pos == expression.Diff_Count())
@@ -232,7 +222,7 @@ namespace TutorialWPF
                 });
             }
             
-            if (expression.ToStringSpec(diff_pos) == "0")
+            if (expression.ToStringSpec(diff_pos, true) == "0")
             {
                 NextDiff.IsEnabled = false;
             }
@@ -243,15 +233,16 @@ namespace TutorialWPF
             if (diff_pos <= expression.Diff_Count() && diff_pos > 2)
             {
                 diff_pos--;
-                OutputFormula.Formula = expression.ToStringSpec(diff_pos);
+                OutputFormula.Formula = expression.ToStringSpec(diff_pos, true);
             }
             else if (diff_pos == 2)
             {
                 diff_pos--;
-                OutputFormula.Formula = expression.ToStringSpec(diff_pos);
+                OutputFormula.Formula = expression.ToStringSpec(diff_pos, true);
                 PrevDiff.IsEnabled = false;
             }
             NextDiff.IsEnabled = true;
         }
+
     }
 }
