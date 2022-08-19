@@ -6,7 +6,7 @@
         xmlns:controls="clr-namespace:WpfMath.Controls;assembly=WpfMath"
         xmlns:local="clr-namespace:TutorialWPF"
         mc:Ignorable="d"
-        Title="Derivative Calculator v0.9.0" Height="450" Width="800">
+        Title="Derivative Calculator v1.0.0" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -28,7 +28,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        
+
+
         <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" FontSize="20" HorizontalAlignment="Stretch">
             Vítejte v derivační kalkulačce!
         </TextBlock>
@@ -62,6 +63,11 @@
                     <Setter Property="CornerRadius" Value="3"/>
                 </Style>
             </CheckBox.Resources>
+            <CheckBox.ToolTip>
+                <ToolTip Placement="Mouse">
+                    <TextBlock Text="Zaškrtněte, chcete-li zobrazit postup."/>
+                </ToolTip>
+            </CheckBox.ToolTip>
         </CheckBox>
 
         <Grid Grid.Column="2" Grid.Row="4">
@@ -75,14 +81,21 @@
             </Grid.RowDefinitions>
             <ComboBox x:Name="DiffVar" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                   Margin="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                  FontWeight="Bold"/>
+                  FontWeight="Bold">
+
+                <ComboBox.ToolTip>
+                    <ToolTip Placement="Mouse">
+                        <TextBlock Text="Derivační proměnná"/>
+                    </ToolTip>
+                </ComboBox.ToolTip>
+            </ComboBox>
 
             <Button x:Name="PrevDiff" Grid.Column="0" Grid.Row="1" Content="&lt;" IsEnabled="False"
                     Margin="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    Click="PrevDiff_Click"/>
+                    Click="PrevDiff_Click" ToolTip="Předchozí derivace"/>
             <Button x:Name="NextDiff" Grid.Column="2" Grid.Row="4" Content="&gt;" IsEnabled="False"
                     Margin="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    Click="NextDiff_Click"/>
+                    Click="NextDiff_Click" ToolTip="Další derivace"/>
         </Grid>
 
         <TextBlock Text="Náhled vstupu:" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" FontWeight="Bold"

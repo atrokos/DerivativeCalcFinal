@@ -61,7 +61,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro absolutní hodnotu platí: |x| = x/|x| * [x]&apos; :.
+        ///   Looks up a localized string similar to Pro absolutní hodnotu platí: [|x|]&apos; = x/|x| * [x]&apos; :.
         /// </summary>
         internal static string abs {
             get {
@@ -79,7 +79,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro arccos platí: [arccos(x)]&apos; = (-1).
+        ///   Looks up a localized string similar to Pro arccos platí: [arccos(x)]&apos; = (-1)/(sqrt(1 - x^2)).
         /// </summary>
         internal static string arccos {
             get {
@@ -88,7 +88,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro arccotan platí:.
+        ///   Looks up a localized string similar to Pro arccotan platí: [arccotan(x)]&apos; = (-1)/(1 + x^2).
         /// </summary>
         internal static string arccotg {
             get {
@@ -97,7 +97,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro arcsin platí:.
+        ///   Looks up a localized string similar to Pro arcsin platí: [arcsin(x)]&apos; = 1/(sqrt(1 - x^2)).
         /// </summary>
         internal static string arcsin {
             get {
@@ -106,7 +106,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro arctan platí:.
+        ///   Looks up a localized string similar to Pro arctan platí: [arctan(x)]&apos; = 1/(1 + x^2).
         /// </summary>
         internal static string arctg {
             get {
@@ -133,7 +133,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro cotan platí:.
+        ///   Looks up a localized string similar to Pro cotan platí: [cotan(x)]&apos; = (-1)/sin(x)^2.
         /// </summary>
         internal static string cotg {
             get {
@@ -160,7 +160,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro přirozený logaritmus platí:.
+        ///   Looks up a localized string similar to Pro přirozený logaritmus platí: (1/x) * [x]&apos;.
         /// </summary>
         internal static string ln {
             get {
@@ -178,7 +178,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro mocninu platí:.
+        ///   Looks up a localized string similar to Pro mocninu platí: [x^y]&apos; = x^y * [ln(x) * y]&apos;.
         /// </summary>
         internal static string power {
             get {
@@ -205,7 +205,7 @@ namespace DerivativeCalcFinal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro tangens platí:.
+        ///   Looks up a localized string similar to Pro tangens platí: [tan(x)]&apos; = 1/cos(x)^2.
         /// </summary>
         internal static string tg {
             get {

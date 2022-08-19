@@ -1158,7 +1158,7 @@ namespace ExprTree
     }
     class Abs : Function
     {
-        public override void Differentiate() //TODO Check if Abs.Diff is correct
+        public override void Differentiate()
         {
             Multi multi = new();
             Divi divi = new();
