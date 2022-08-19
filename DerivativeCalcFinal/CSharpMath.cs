@@ -153,6 +153,10 @@ namespace CSharpMath
                     }
                     else if (operators.Contains(str_current))
                     {
+                        if (str_current.Equals("-") && (i == 0 || simplified[i - 1].ToString().Equals("(")))
+                        {
+                            result.Add("0");
+                        }
                         result.Add(str_current);
                         i++;
                         oper_needed = false;
