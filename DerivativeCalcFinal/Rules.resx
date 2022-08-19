@@ -118,22 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="abs" xml:space="preserve">
-    <value>Pro absolutní hodnotu platí: |x| = x/|x| * [x]' :</value>
+    <value>Pro absolutní hodnotu platí: [|x|]' = x/|x| * [x]' :</value>
   </data>
   <data name="addition" xml:space="preserve">
     <value>Pro sčítání platí: f + g = f' + g', tj.:</value>
   </data>
   <data name="arccos" xml:space="preserve">
-    <value>Pro arccos platí: [arccos(x)]' = (-1)</value>
+    <value>Pro arccos platí: [arccos(x)]' = (-1)/(sqrt(1 - x^2))</value>
   </data>
   <data name="arccotg" xml:space="preserve">
-    <value>Pro arccotan platí:</value>
+    <value>Pro arccotan platí: [arccotan(x)]' = (-1)/(1 + x^2)</value>
   </data>
   <data name="arcsin" xml:space="preserve">
-    <value>Pro arcsin platí:</value>
+    <value>Pro arcsin platí: [arcsin(x)]' = 1/(sqrt(1 - x^2))</value>
   </data>
   <data name="arctg" xml:space="preserve">
-    <value>Pro arctan platí:</value>
+    <value>Pro arctan platí: [arctan(x)]' = 1/(1 + x^2)</value>
   </data>
   <data name="constant" xml:space="preserve">
     <value>Jde o konstantu, zderivuje se tedy na 0.</value>
@@ -142,7 +142,7 @@
     <value>Jelikož [cos(x)]' = -sin(x) * [x]' :</value>
   </data>
   <data name="cotg" xml:space="preserve">
-    <value>Pro cotan platí:</value>
+    <value>Pro cotan platí: [cotan(x)]' = (-1)/sin(x)^2</value>
   </data>
   <data name="diffvariable" xml:space="preserve">
     <value>Jde o derivační proměnnou, zderivuje se tedy na 1.</value>
@@ -151,13 +151,13 @@
     <value>Pro dělení platí: [f / g]' = ( f' * g - f * g' ) / (g^2)  :</value>
   </data>
   <data name="ln" xml:space="preserve">
-    <value>Pro přirozený logaritmus platí:</value>
+    <value>Pro přirozený logaritmus platí: (1/x) * [x]'</value>
   </data>
   <data name="multiplication" xml:space="preserve">
     <value>Pro násobení platí: [f * g]' = f' * g + f * g'  :</value>
   </data>
   <data name="power" xml:space="preserve">
-    <value>Pro mocninu platí:</value>
+    <value>Pro mocninu platí: [x^y]' = x^y * [ln(x) * y]'</value>
   </data>
   <data name="sin" xml:space="preserve">
     <value>Pro sinus platí: [sin(x)]' = cos(x) * [x]'</value>
@@ -166,6 +166,6 @@
     <value>Pro odčítání platí: [f - g]' = f' - g'  :</value>
   </data>
   <data name="tg" xml:space="preserve">
-    <value>Pro tangens platí:</value>
+    <value>Pro tangens platí: [tan(x)]' = 1/cos(x)^2</value>
   </data>
 </root>
