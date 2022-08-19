@@ -4,11 +4,19 @@
              xmlns:local="clr-namespace:DerivativeCalcGUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="Separator">
-            <Setter Property="Background" Value="Black"/>
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
         </Style>
-        <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="5"/>
+        <Style TargetType="ToolTip">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
         </Style>
     </Application.Resources>
     
