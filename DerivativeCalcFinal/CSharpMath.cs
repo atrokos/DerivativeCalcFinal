@@ -1,5 +1,5 @@
 ﻿using AngouriMath;
-using ExprTree;
+using CSharpMathCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,10 +11,10 @@ namespace CSharpMath
     {
         public class MathExpression
         {
-            private Head tree = new();
+            private Head? tree;
             private readonly Parser parser;
             private bool isDifferentiable = true;
-            List<string> expressions = new List<string>();
+            List<string> expressions = new();
 
             public MathExpression(string newexpr, string VAR)
             {
@@ -92,8 +92,9 @@ namespace CSharpMath
             private static readonly HashSet<string> functions = new HashSet<string> { "sin", "cos", "tg", "tan", "cotg", "cotan", "abs", "arcsin", "arccos", "arctg", "arccotg", "ln", "sqrt", "cbrt" };
             private static readonly HashSet<string> operators = new HashSet<string> { "+", "-", "*", "/", "^" };
             private static readonly HashSet<string> variables = new HashSet<string> { "e", "pi" };
+            private List<string> expr = new();
             private readonly string VAR;
-            private int pos;
+            private int pos = -1;
 
             public Parser(string vAR)
             {
@@ -102,7 +103,7 @@ namespace CSharpMath
             public Head ConvertToTree(string expression)
             {
                 Head tree = PrefixToTree(ListToPrefix(ExprToList(expression)));
-                pos = 0;
+                pos = -1;
                 return tree;
             }
             public string ConvertToInfix(Head tree)
@@ -113,12 +114,11 @@ namespace CSharpMath
             }
             public string ConvertToInfixHead(INode node)
             {
-                Head head = new();
-                head.Add(node);
+                Head head = new(node);
 
                 string expression = PrefixToInfix(TreeToPrefix(head));
                 Entity entity = expression;
-                pos = 0;
+                pos = -1;
                 return entity.ToString();
             }
 
@@ -303,8 +303,8 @@ namespace CSharpMath
             }
             Head PrefixToTree(List<string> expr)
             {
-                Head node = new();
-                node.Add(BuildTree(expr));
+                this.expr = expr;
+                Head node = new(BuildTree());
                 return node;
             }
             List<string> TreeToPrefix(Head tree)
@@ -317,98 +317,102 @@ namespace CSharpMath
                 while (stack.Count > 0)
                 {
                     INode node = stack.Pop();
-                    if (node is Constant constant)
+                    switch (node)
                     {
-                        if (constant.Value == Math.E)
-                            result.Add("e");
-                        else if (constant.Value == Math.PI)
-                            result.Add("pi");
-                        else
-                        {
-                            double val = constant.Value;
-                            result.Add(val.ToString(CultureInfo.InvariantCulture));
-                        }
-                    }
-                    else if (node is DiffVariable)
-                    {
-                        result.Add(VAR);
-                    }
-                    else if (node is LetterConstant letterConstant)
-                    {
-                        result.Add(letterConstant.Letter);
-                    }
-                    else if (node is OPNode opnode)
-                    {
-                        switch (opnode)
-                        {
-                            case Plus:
-                                result.Add("+");
-                                stack.Push(opnode.rightchild);
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Minus:
-                                result.Add("-");
-                                stack.Push(opnode.rightchild);
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Multi:
-                                result.Add("*");
-                                stack.Push(opnode.rightchild);
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Divi:
-                                result.Add("/");
-                                stack.Push(opnode.rightchild);
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Power:
-                                result.Add("^");
-                                stack.Push(opnode.rightchild);
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Sin:
-                                result.Add("sin");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Cos:
-                                result.Add("cos");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Tg:
-                                result.Add("tan");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Cotg:
-                                result.Add("cotan");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Arcsin:
-                                result.Add("arcsin");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Arccos:
-                                result.Add("arccos");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Arctg:
-                                result.Add("arctan");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Arccotg:
-                                result.Add("arccotan");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Abs:
-                                result.Add("abs");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            case Log:
-                                result.Add("ln");
-                                stack.Push(opnode.leftchild);
-                                break;
-                            default:
-                                throw new Exception($"TreeToPrefix: UNKNOWN OPTOKEN: {node}");
-                        }
+                        case Constant constant:
+                            if (constant.Value == Math.E)
+                                result.Add("e");
+                            else if (constant.Value == Math.PI)
+                                result.Add("pi");
+                            else
+                            {
+                                double val = constant.Value;
+                                result.Add(val.ToString(CultureInfo.InvariantCulture));
+                            }
+                            break;
+                        case DiffVariable:
+                            result.Add(VAR);
+                            break;
+                        case LetterConstant letterConstant:
+                            result.Add(letterConstant.Letter);
+                            break;
+                        case OPNode opnode:
+                            switch (opnode)
+                            {
+                                case Plus:
+                                    result.Add("+");
+                                    stack.Push(opnode.rightchild);
+                                    stack.Push(opnode.leftchild);
+                                    break;
+                                case Minus:
+                                    result.Add("-");
+                                    stack.Push(opnode.rightchild);
+                                    stack.Push(opnode.leftchild);
+                                    break;
+                                case Multi:
+                                    result.Add("*");
+                                    stack.Push(opnode.rightchild);
+                                    stack.Push(opnode.leftchild);
+                                    break;
+                                case Divi:
+                                    result.Add("/");
+                                    stack.Push(opnode.rightchild);
+                                    stack.Push(opnode.leftchild);
+                                    break;
+                                case Power:
+                                    result.Add("^");
+                                    stack.Push(opnode.rightchild);
+                                    stack.Push(opnode.leftchild);
+                                    break;
+                                default:
+                                    throw new Exception($"TreeToPrefix: UNKNOWN OPTOKEN: {node}");
+                            }
+                            break;
+                        case Function function:
+                            switch (function)
+                            {
+                                case Sin:
+                                    result.Add("sin");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Cos:
+                                    result.Add("cos");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Tg:
+                                    result.Add("tan");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Cotg:
+                                    result.Add("cotan");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Arcsin:
+                                    result.Add("arcsin");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Arccos:
+                                    result.Add("arccos");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Arctg:
+                                    result.Add("arctan");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Arccotg:
+                                    result.Add("arccotan");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Abs:
+                                    result.Add("abs");
+                                    stack.Push(function.leftchild);
+                                    break;
+                                case Log:
+                                    result.Add("ln");
+                                    stack.Push(function.leftchild);
+                                    break;
+                            }
+                            break;
                     }
                 }
                 return result;
@@ -442,20 +446,19 @@ namespace CSharpMath
                 }
                 return stack.Pop();
             }
-            INode BuildTree(List<string> expr)
+            INode BuildTree()
             {
-                INode node;
-                double n;
+                pos++;
 
-                if (double.TryParse(expr[pos], out n)) //It is a number
+                if (double.TryParse(expr[pos], out double n)) //It is a number
                 {
                     Constant constant = new(n);
-                    node = constant;
+                    return constant;
                 }
                 else if (expr[pos] == VAR) //It is a derivative variable
                 {
                     DiffVariable variable = new();
-                    node = variable;
+                    return variable;
                 }
                 else //It is an operator or a function
                 {
@@ -463,154 +466,95 @@ namespace CSharpMath
                     {
                         case "e":
                             Constant euler = new(Math.E);
-                            node = euler;
-                            break;
+
+                            return euler;
                         case "pi":
                             Constant pi = new(Math.PI);
-                            node = pi;
-                            break;
+
+                            return pi;
                         case "+":
-                            Plus plus = new();
-                            pos++;
-                            plus.Add(BuildTree(expr));
+                            Plus plus = new(BuildTree(), BuildTree());
 
-                            pos++;
-                            plus.Add(BuildTree(expr));
-                            node = plus;
-                            break;
+                            return plus;
                         case "-":
-                            Minus minus = new();
-                            pos++;
-                            minus.Add(BuildTree(expr));
+                            Minus minus = new(BuildTree(), BuildTree());
 
-                            pos++;
-                            minus.Add(BuildTree(expr));
-                            node = minus;
-                            break;
+                            return minus;
                         case "*":
-                            Multi multi = new();
-                            pos++;
-                            multi.Add(BuildTree(expr));
+                            Multi multi = new(BuildTree(), BuildTree());
 
-                            pos++;
-                            multi.Add(BuildTree(expr));
-                            node = multi;
-                            break;
+                            return multi;
                         case "/":
-                            Divi divi = new();
-                            pos++;
-                            divi.Add(BuildTree(expr));
+                            Divi divi = new(BuildTree(), BuildTree());
 
-                            pos++;
-                            divi.Add(BuildTree(expr));
-                            node = divi;
-                            break;
+                            return divi;
                         case "^":
-                            Power power = new();
-                            pos++;
-                            power.Add(BuildTree(expr));
+                            Power power = new(BuildTree(), BuildTree());
 
-                            pos++;
-                            power.Add(BuildTree(expr));
-                            node = power;
-                            break;
+                            return power;
                         case "sin":
-                            Sin sin = new();
-                            pos++;
-                            sin.Add(BuildTree(expr));
-                            node = sin;
-                            break;
+                            Sin sin = new(BuildTree());
+
+                            return sin;
                         case "cos":
-                            Cos cos = new();
-                            pos++;
-                            cos.Add(BuildTree(expr));
-                            node = cos;
-                            break;
+                            Cos cos = new(BuildTree());
+
+                            return cos;
                         case "tan":
                         case "tg":
-                            Tg tg = new();
-                            pos++;
-                            tg.Add(BuildTree(expr));
-                            node = tg;
-                            break;
+                            Tg tg = new(BuildTree());
+
+                            return tg;
                         case "cotan":
                         case "cotg":
-                            Cotg cotg = new();
-                            pos++;
-                            cotg.Add(BuildTree(expr));
-                            node = cotg;
-                            break;
+                            Cotg cotg = new(BuildTree());
+
+                            return cotg;
                         case "arcsin":
-                            Arcsin arcsin = new();
-                            pos++;
-                            arcsin.Add(BuildTree(expr));
-                            node = arcsin;
-                            break;
+                            Arcsin arcsin = new(BuildTree());
+
+                            return arcsin;
                         case "arccos":
-                            Arccos arccos = new();
-                            pos++;
-                            arccos.Add(BuildTree(expr));
-                            node = arccos;
-                            break;
+                            Arccos arccos = new(BuildTree());
+
+                            return arccos;
                         case "arctg":
-                            Arctg arctg = new();
-                            pos++;
-                            arctg.Add(BuildTree(expr));
-                            node = arctg;
-                            break;
+                            Arctg arctg = new(BuildTree());
+
+                            return arctg;
                         case "arccotg":
-                            Arccotg arccotg = new();
-                            pos++;
-                            arccotg.Add(BuildTree(expr));
-                            node = arccotg;
-                            break;
+                            Arccotg arccotg = new(BuildTree());
+
+                            return arccotg;
                         case "abs":
-                            Abs abs = new();
-                            pos++;
-                            abs.Add(BuildTree(expr));
-                            node = abs;
-                            break;
+                            Abs abs = new(BuildTree());
+
+                            return abs;
                         case "ln":
-                            Log log = new();
-                            pos++;
-                            log.Add(BuildTree(expr));
-                            node = log;
-                            break;
+                            Log log = new(BuildTree());
+
+                            return log;
                         case "sqrt":
-                            Power power1 = new();
-                            pos++;
-                            power1.Add(BuildTree(expr));
-
-                            Divi sqrtdivi = new();
                             Constant one = new(1), two = new(2);
-                            sqrtdivi.SetChildren(one, two);
-                            power1.Add(sqrtdivi);
+                            Divi sqrtdivi = new(one, two);
+                            Power power1 = new(BuildTree(), sqrtdivi);
 
-                            node = power1;
-                            break;
+                            return power1;
                         case "cbrt":
-                            Power power2 = new();
-                            pos++;
-                            power2.Add(BuildTree(expr));
-
-                            Divi cbrtdivi = new();
                             Constant one2 = new(1), three = new(3);
-                            cbrtdivi.SetChildren(one2, three);
-                            power2.Add(cbrtdivi);
+                            Divi cbrtdivi = new(one2, three);
+                            Power power2 = new(BuildTree(), cbrtdivi);
 
-                            node = power2;
-                            break;
+                            return power2;
                         default:
                             if (expr[pos].Length == 1)
                             {
                                 LetterConstant letter = new(expr[pos]);
-                                node = letter;
-                                break;
+                                return letter;
                             }
                             throw new Exception("UNKNOWN OPTOKEN");
                     }
                 }
-                return node;
             }
             int GetPriority(string oper)
             {

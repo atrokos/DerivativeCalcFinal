@@ -33,7 +33,7 @@ namespace TutorialWPF
         private bool prev_state = true;
         private string prev_var = "x";
         private int diff_pos = 1;
-        private MathExpression expression = null;
+        private MathExpression expression = new("x", "x");
         private static readonly List<SolidColorBrush> bcolors = new() {Brushes.PaleGreen, Brushes.PaleTurquoise, Brushes.PaleGoldenrod, Brushes.LightSalmon, Brushes.Linen };
 
         private async void GoButton_Click(object sender, RoutedEventArgs e)
