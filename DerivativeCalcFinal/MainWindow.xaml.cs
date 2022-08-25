@@ -6,8 +6,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using WpfMath.Controls;
-using CSharpMath.Differentiation;
 using AngouriMath;
+using CSharpMath.Expressions;
+using CSharpMath.Parsing;
 
 namespace TutorialWPF
 {
@@ -22,7 +23,8 @@ namespace TutorialWPF
             char c = 'a';
             for (int i = 0; i < 26; i++)
             {
-                DiffVar.Items.Add(Char.ToString(c));
+                if (c != 'e')
+                    DiffVar.Items.Add(Char.ToString(c));
                 c++;
             }
             DiffVar.SelectedItem = "x";
@@ -33,7 +35,7 @@ namespace TutorialWPF
         private bool prev_state = true;
         private string prev_var = "x";
         private int diff_pos = 1;
-        private MathExpression expression = new("x", "x");
+        private MathExpression expression;
         private static readonly List<SolidColorBrush> bcolors = new() {Brushes.PaleGreen, Brushes.PaleTurquoise, Brushes.PaleGoldenrod, Brushes.LightSalmon, Brushes.Linen };
 
         private async void GoButton_Click(object sender, RoutedEventArgs e)
@@ -165,7 +167,7 @@ namespace TutorialWPF
             string result;
             try
             {
-                Entity entity = inputexpression.Text;
+                Entity entity = inputexpression.Text.ToLower();
                 result = entity.Latexise();
             }
             catch

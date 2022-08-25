@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CSharpMathCore
+namespace CSharpMath.Core
 {
     sealed class DiffVariable : ConstNode
     {

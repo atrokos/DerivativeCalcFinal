@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CSharpMathCore
+namespace CSharpMath.Core
 {
     public static class Storage
     {
@@ -52,7 +52,7 @@ namespace CSharpMathCore
             leftchild.SetParent(this);
         }
     }
-    class Head : ActionNode, IParent, INode
+    class Head : ActionNode
     {
         public Head(INode leftchild) : base(leftchild)
         {

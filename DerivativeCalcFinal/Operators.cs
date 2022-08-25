@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CSharpMathCore
+namespace CSharpMath.Core
 {
     abstract class OPNode : ActionNode
     {
