@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CSharpMathCore.DiffVariable" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAgAAAAAABA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Constant" Collapsed="true">
+    <Position X="4.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAADAAAAggAAAAABA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.LetterConstant" Collapsed="true">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAQAAAAFAAAAgAAAAAABA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Storage" Collapsed="true">
+    <Position X="6.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.ActionNode" Collapsed="true">
+    <Position X="15.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAgAAAAAAAAABAAAAAEAAAAAAAABAAAEgAAAQAABA=</HashCode>
+      <FileName>Core.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CSharpMathCore.Head" Collapsed="true">
+    <Position X="8.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAgAAAAAABA=</HashCode>
+      <FileName>Core.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CSharpMathCore.ConstNode" Collapsed="true">
+    <Position X="4.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAEAAAAAAAABAAAEgAAAQAABA=</HashCode>
+      <FileName>Core.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CSharpMathCore.Function" Collapsed="true">
+    <Position X="17.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Sin" Collapsed="true">
+    <Position X="18.75" Y="6.75" Width="1.5" />
+    <InheritanceLine Type="CSharpMathCore.Function" ManuallyRouted="true">
+      <Path>
+        <Point X="18.5" Y="4.941" />
+        <Point X="18.5" Y="5.375" />
+        <Point X="20.491" Y="5.375" />
+        <Point X="20.491" Y="6.596" />
+        <Point X="19.5" Y="6.596" />
+        <Point X="19.5" Y="6.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Cos" Collapsed="true">
+    <Position X="19.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Tg" Collapsed="true">
+    <Position X="14.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Cotg" Collapsed="true">
+    <Position X="18.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Arcsin" Collapsed="true">
+    <Position X="14.75" Y="6.75" Width="1.5" />
+    <InheritanceLine Type="CSharpMathCore.Function" ManuallyRouted="true">
+      <Path>
+        <Point X="18.5" Y="4.941" />
+        <Point X="18.5" Y="5.375" />
+        <Point X="16.491" Y="5.375" />
+        <Point X="16.491" Y="6.596" />
+        <Point X="15.5" Y="6.596" />
+        <Point X="15.5" Y="6.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Arccos" Collapsed="true">
+    <Position X="16.75" Y="6.75" Width="1.5" />
+    <InheritanceLine Type="CSharpMathCore.Function" ManuallyRouted="true">
+      <Path>
+        <Point X="18.5" Y="4.941" />
+        <Point X="18.5" Y="5.375" />
+        <Point X="16.516" Y="5.375" />
+        <Point X="16.516" Y="6.596" />
+        <Point X="17.5" Y="6.596" />
+        <Point X="17.5" Y="6.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Arctg" Collapsed="true">
+    <Position X="20.75" Y="6.75" Width="1.5" />
+    <InheritanceLine Type="CSharpMathCore.Function" ManuallyRouted="true">
+      <Path>
+        <Point X="18.5" Y="4.941" />
+        <Point X="18.5" Y="5.375" />
+        <Point X="20.505" Y="5.375" />
+        <Point X="20.505" Y="6.596" />
+        <Point X="21.5" Y="6.596" />
+        <Point X="21.5" Y="6.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Arccotg" Collapsed="true">
+    <Position X="15.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Log" Collapsed="true">
+    <Position X="16.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAgAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Abs" Collapsed="true">
+    <Position X="20.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.OPNode" Collapsed="true">
+    <Position X="10.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Operators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Plus" Collapsed="true">
+    <Position X="10.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAgAAAAAABA=</HashCode>
+      <FileName>Operators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Minus" Collapsed="true">
+    <Position X="13" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAgAAAAAABA=</HashCode>
+      <FileName>Operators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Multi" Collapsed="true">
+    <Position X="11.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAgAAAAAABA=</HashCode>
+      <FileName>Operators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Divi" Collapsed="true">
+    <Position X="9.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAgAAAAAABA=</HashCode>
+      <FileName>Operators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharpMathCore.Power" Collapsed="true">
+    <Position X="8.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAgAAAAAABA=</HashCode>
+      <FileName>Operators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="CSharpMathCore.IParent" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CSharpMathCore.INode" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAEgAAAAAABA=</HashCode>
+      <FileName>Core.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
